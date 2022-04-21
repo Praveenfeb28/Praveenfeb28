@@ -1,0 +1,21 @@
+name: FileSource
+tenant: public
+namespace: default
+destination-topic-name:  persistent://public/default/file-source-topic
+parallelism: 1
+source-type: file
+#producer-config
+configs:
+  inputDirectory: "./"
+  recurse: true
+  keepFile: true
+  fileFilter: "[^\\.].txt"
+  pathFilter: "*"
+  ignoreHiddenFiles: true
+  pollingInterval: 500
+  numWorkers: 1
+  ./bin/pulsar-admin sinks create \
+  --archive https://archive.apache.org/dist/pulsar/pulsar-2.9.2/connectors/pulsar-io-elastic-search-2.9.2.nar
+  --sink-config-file ./elasticsearch-sink.yaml
+  --archive ../resources/pulsar-io-elastic-search-2.9.2.nar
+  --sink-config-file ../resources/elasticsearch-sink.yaml
